@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: transform 0.3s ease;
+}
+
+
+.fade-leave-to {
+  transform: translateY(100px);
+}
+
+.fade-enter-from {
+  transform: translateY(100px);
+}
