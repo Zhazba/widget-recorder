@@ -85,7 +85,7 @@ const isLoadingCreate = ref<boolean>(false);
 
 
 function onAcceptUnmasked(unmaskedValue: string) {
-    console.log(unmaskedValue);
+    form.phoneUnMasked = unmaskedValue;
 }
 
 const form = reactive({
@@ -97,6 +97,7 @@ const form = reactive({
         value: "",
         isValid: true
     },
+    phoneUnMasked: "",
     phone: {
         value: "+7 ",
         isValid: true
@@ -145,7 +146,7 @@ const create = () => {
     const data: RecordData = {
         first_name: form.name.value,
         email: form.email.value,
-        phone: form.phone.value,
+        phone: form.phoneUnMasked,
         branch_id: store.branch?.id!,
         record_start_datetime: store.selectedDate!.toISOString(),
         record_end_datetime: addMinutes(store.selectedDate!, store.service?.duration!).toISOString(),
