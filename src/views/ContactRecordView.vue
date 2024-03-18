@@ -68,7 +68,7 @@ import { useRoute, useRouter } from 'vue-router';
 import AppHeaderComponent from '../components/AppHeaderComponent.vue';
 import LoadinViewComponent from '../components/LoadingComponent.vue';
 import { IMaskComponent } from 'vue-imask';
-import { computed, onMounted, reactive, ref, watch } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { addDays, addMinutes, formatDate } from "date-fns";
 import { ru } from "date-fns/locale";
 import { instance } from '../api/server';
