@@ -1,14 +1,14 @@
 <template>
      <LoadingComponent :isLoading="isLoading"></LoadingComponent>
-    <div v-if="store.service">
+    <div>
         <div class="bg-white rounded-bl-2xl rounded-br-2xl shadow">
             <AppHeaderComponent :backRoute="{
         name: 'detail-branch',
         params: {
             id: route.params.id
         }
-    }" :title="store.branch!.name"></AppHeaderComponent>
-            <div class="px-6 pb-5">
+    }" :title="store.branch?.name ?? 'Домой'"></AppHeaderComponent>
+            <div  v-if="store.service" class="px-6 pb-5">
                 <div class="flex justify-between items-center">
                     <div>
                         <div>{{ store.service?.name }}</div>
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="px-6 mt-4">
+        <div class="px-6 mt-4" v-if="store.service">
             <h2 class="font-medium">Мастеры</h2>
             <div class="flex flex-col gap-[10px] mt-[15px]">
                 <MasterSelectComponent :work-days="workDays" v-model="master" :options="store.service?.employees"></MasterSelectComponent>

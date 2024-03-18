@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { ArrowLongLeftIcon, HomeIcon } from '@heroicons/vue/24/outline';
 defineProps<{
-    title: string,
+    title?: string,
     backRoute?: any
     homeRoute?: any
 }>()

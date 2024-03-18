@@ -1,14 +1,14 @@
 <template>
     <LoadingComponent :is-loading="isLoading"></LoadingComponent>
-    <div v-if="store.employee">
+    <div >
         <div class="bg-white rounded-bl-2xl rounded-br-2xl shadow">
-            <AppHeaderComponent v-if="store.branch" :backRoute="{
+            <AppHeaderComponent :backRoute="{
         name: 'masters-list',
         params: {
             id: route.params.id,
             serviceId: store.service!.id
         }
-    }" :title="store.branch?.name"></AppHeaderComponent>
+    }" :title="store.branch?.name ?? 'Домой'"></AppHeaderComponent>
             <div v-if="store.service" class="px-6 pb-5">
                 <div class="flex justify-between">
                     <div>
@@ -19,7 +19,7 @@
                         <div class="text-sm text-slate-500">{{ store.service.price }}₸</div>
                     </div>
                 </div>
-                <div class="cursor-pointer py-2 flex gap-[15px] bg-white rounded-2xl items-center text-sm">
+                <div v-if="store.employee" class="cursor-pointer py-2 flex gap-[15px] bg-white rounded-2xl items-center text-sm">
                     <div class="h-[45px] w-[45px] overflow-hidden rounded-[45px]">
                         <img class="w-full h-full" :src="store.employee.image" />
                     </div>
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <TimeSlotComponent class="px-6 mt-6" :today="date" :employee-records="store.employee.records"
+        <TimeSlotComponent v-if="store.employee" class="px-6 mt-6" :today="date" :employee-records="store.employee.records"
             :work-days="workDays"></TimeSlotComponent>
         <div class="h-[100px]"></div>
         <ContinueComponent @click="navigateToCreateRecord" :isOpen="isOpen" title="Перейти к бронированию"

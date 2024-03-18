@@ -121,7 +121,11 @@ const onSelect = (slot: Date) => {
 <template>
     <div class="flex flex-col">
         <div v-if="workDays[today.getDay()]['work']">
-            <TimeGroupedComponent @onSelect="onSelect" :checkedDates="checkedDates" title="Утро"
+            <div v-if="toRender.morning.length <= 0 && toRender.lunch.length <= 0 && toRender.evening.length <= 0">
+                К сожалению, на сегодняшний день нет доступных мест.
+            </div>
+            <div>
+                <TimeGroupedComponent @onSelect="onSelect" :checkedDates="checkedDates" title="Утро"
                 :options="toRender.morning">
             </TimeGroupedComponent>
             <TimeGroupedComponent @onSelect="onSelect" :checkedDates="checkedDates" title="Обед"
@@ -130,9 +134,10 @@ const onSelect = (slot: Date) => {
             <TimeGroupedComponent @onSelect="onSelect" :checkedDates="checkedDates" title="Вечер"
                 :options="toRender.evening">
             </TimeGroupedComponent>
+            </div>
         </div>
         <div v-else>
-            Эти дни не работает
+            Обратите внимание: сегодня нерабочий день
         </div>
     </div>
 </template>
