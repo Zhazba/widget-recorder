@@ -11,21 +11,17 @@
         }
     }" :title="store.branch?.name"></AppHeaderComponent>
             <div v-if="store.service" class="px-6 pb-5">
-                <div class="mt-1">
-                    {{ formatDate(date, 'dd MMMM', { locale: ru }) }} <span v-if="store.selectedDate">{{
+                <EmployeeInfoComponent></EmployeeInfoComponent>
+                <div class="w-full h-[1px] bg-slate-300 rounded my-3"></div>
+                <ServiceInfoComponent></ServiceInfoComponent>
+                <div class="w-full h-[1px] bg-slate-300 rounded my-3"></div>
+                <div class="flex gap-3 items-center">
+                    <ClockIcon class="w-[30px] h-[30px]"></ClockIcon>
+                   <div> {{ formatDate(date, 'dd MMMM', { locale: ru }) }} <span v-if="store.selectedDate">{{
         withZeroInteger(store.selectedDate?.getHours()) }}:{{
-        withZeroInteger(store.selectedDate?.getMinutes()) }}</span>
+        withZeroInteger(store.selectedDate?.getMinutes()) }}</span></div>
                 </div>
-                <div class="cursor-pointer mt-1 py-2 flex gap-[15px] bg-white rounded-2xl items-center text-sm">
-                    <div class="h-[45px] w-[45px] overflow-hidden rounded-[45px]">
-                        <img class="w-full h-full" :src="store.employee.image" />
-                    </div>
-                    <div>
-                        <div class=" text-slate-500 text-xs font-light">Мастер</div>
-                        <h2 class="text-sm">{{ store.employee.first_name }}</h2>
-                    </div>
-                </div>
-                <div class="mt-3">
+                <div class="mt-5">
                     <input @input="checkIsRequired(form.name)" @blur="checkIsRequired(form.name)"
                         v-model="form.name.value" placeholder="Имя" :class="{
         '!border-red-400 focus:outline-red-400': !form.name.isValid
@@ -76,6 +72,9 @@ import { clearStore, setServiceWithEmployeeAndDate, store } from '../appStore';
 import { withZeroInteger } from '../utils';
 import { RecordView, RecordData } from '../types';
 import { addToast } from '../components/ToastComponent';
+import { ClockIcon } from '@heroicons/vue/24/outline';
+import EmployeeInfoComponent from '../components/EmployeeInfoComponent.vue';
+import ServiceInfoComponent from '../components/ServiceInfoComponent.vue';
 
 const route = useRoute();
 const router = useRouter();

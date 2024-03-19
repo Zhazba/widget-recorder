@@ -6,6 +6,7 @@
             <h2 class="font-medium">Услуги</h2>
             <ServiceSelectComponent class="mt-5" v-model="selectedOption" :options="store.branch.services"></ServiceSelectComponent>
         </main>
+        <div class="h-[100px]"></div>
         <ContinueComponent @click="navigateToMasters" :isOpen="isOpen" title="Выбрать барбера" :service="selectedOption"></ContinueComponent>
     </div>
 </template>

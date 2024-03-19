@@ -8,16 +8,8 @@
             id: route.params.id
         }
     }" :title="store.branch?.name ?? 'Домой'"></AppHeaderComponent>
-            <div  v-if="store.service" class="px-6 pb-5">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <div>{{ store.service?.name }}</div>
-                        <div class="flex gap-2">
-                            <div class="text-sm text-slate-500">{{ store.service.duration }} минут</div>
-                            <div class="text-sm text-slate-500">{{ store.service.price }}₸</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="px-6 pb-5">
+                <ServiceInfoComponent></ServiceInfoComponent>
             </div>
         </div>
         <div class="px-6 mt-4" v-if="store.service">
@@ -38,6 +30,7 @@ import LoadingComponent from '../components/LoadingComponent.vue';
 import { Employee } from '../types';
 import MasterSelectComponent from '../components/MasterSelectComponent.vue';
 import ContinueComponent from '../components/ContinueComponent.vue';
+import ServiceInfoComponent from '../components/ServiceInfoComponent.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { instance } from '../api/server';
 import { setService } from '../appStore';

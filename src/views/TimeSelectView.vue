@@ -9,29 +9,16 @@
             serviceId: store.service!.id
         }
     }" :title="store.branch?.name ?? 'Домой'"></AppHeaderComponent>
-            <div v-if="store.service" class="px-6 pb-5">
-                <div class="flex justify-between">
-                    <div>
-                        <div class="text-sm text-slate-500">{{ store.service?.name }}</div>
-                    </div>
-                    <div>
-                        <div class="text-sm text-slate-500">{{ store.service.duration }} минут</div>
-                        <div class="text-sm text-slate-500">{{ store.service.price }}₸</div>
-                    </div>
-                </div>
-                <div v-if="store.employee" class="cursor-pointer py-2 flex gap-[15px] bg-white rounded-2xl items-center text-sm">
-                    <div class="h-[45px] w-[45px] overflow-hidden rounded-[45px]">
-                        <img class="w-full h-full" :src="store.employee.image" />
-                    </div>
-                    <div>
-                        <div class=" text-slate-500 text-xs font-light">Мастер</div>
-                        <h2 class="text-sm">{{ store.employee.first_name }}</h2>
-                    </div>
-                </div>
-                <div class="mt-1">
-                    {{ formatDate(date, 'dd MMMM', { locale: ru }) }} <span v-if="store.selectedDate">{{
+            <div  class="px-6 pb-5">
+                <EmployeeInfoComponent></EmployeeInfoComponent>
+                <div class="w-full h-[1px] bg-slate-300 rounded my-3"></div>
+                <ServiceInfoComponent></ServiceInfoComponent>
+                <div class="w-full h-[1px] bg-slate-300 rounded my-3"></div>
+                <div class="flex gap-3 items-center">
+                    <ClockIcon class="w-[30px] h-[30px]"></ClockIcon>
+                   <div> {{ formatDate(date, 'dd MMMM', { locale: ru }) }} <span v-if="store.selectedDate">{{
         withZeroInteger(store.selectedDate?.getHours()) }}:{{
-        withZeroInteger(store.selectedDate?.getMinutes()) }}</span>
+        withZeroInteger(store.selectedDate?.getMinutes()) }}</span></div>
                 </div>
                 <div class="mt-[15px] w-full gap-2 overflow-scroll flex">
                     <div :class="{
@@ -63,8 +50,12 @@ import { addDays, formatDate } from "date-fns";
 import { ru } from "date-fns/locale";
 import { instance } from '../api/server';
 import { setDate, setServiceWithEmployee, store, workDays } from '../appStore';
+import { ClockIcon } from '@heroicons/vue/24/outline';
+import EmployeeInfoComponent from '../components/EmployeeInfoComponent.vue';
+import ServiceInfoComponent from '../components/ServiceInfoComponent.vue';
 import { withZeroInteger } from '../utils';
 import LoadingComponent from '../components/LoadingComponent.vue';
+
 
 const route = useRoute();
 const router = useRouter();
