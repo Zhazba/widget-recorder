@@ -23,7 +23,7 @@
                 </div>
                 <div class="mt-5">
                     <input @input="checkIsRequired(form.name)" @blur="checkIsRequired(form.name)"
-                        v-model="form.name.value" placeholder="Имя" :class="{
+                        v-model="form.name.value" placeholder="Имя*" :class="{
         '!border-red-400 focus:outline-red-400': !form.name.isValid
     }" class="bg-gray-100 border border-transparent focus:outline-primary w-full py-2 px-4 rounded-lg" />
 
@@ -31,7 +31,7 @@
                         class="bg-gray-100 border border-transparent focus:outline-primary mt-2 w-full py-2 px-4 rounded-lg"
                         @input="checkIsRequired(form.phone)" @blur="checkIsRequired(form.phone)"
                         :value="form.phone.value" :mask="'+{7} (000) 000-00-00'" radix="."
-                        @accept:unmasked="onAcceptUnmasked" placeholder='Номер телефона' />
+                        @accept:unmasked="onAcceptUnmasked" placeholder='Номер телефона*' />
                     <input @input="checkIsEmail(form.email)" @blur="checkIsEmail(form.email)" type="email"
                         v-model="form.email.value" placeholder="Почта" :class="{
         '!border-red-400 focus:outline-red-400': !form.email.isValid
@@ -90,7 +90,7 @@ function onAcceptUnmasked(unmaskedValue: string) {
 const form = reactive({
     name: {
         value: "",
-        isValid: true
+        isValid: true,
     },
     email: {
         value: "",
@@ -99,7 +99,7 @@ const form = reactive({
     phoneUnMasked: "",
     phone: {
         value: "+7 ",
-        isValid: true
+        isValid: false
     },
 });
 
@@ -112,11 +112,11 @@ const checkIsRequired = (item: any) => {
 }
 
 const checkIsEmail = (item: any) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (item.value == "" || item.value == undefined) {
-        item.isValid = false;
+    if (item.value == "") {
         return;
     }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ 
     if (emailPattern.test(item.value) == false) {
         item.isValid = false;
         return;
@@ -124,7 +124,7 @@ const checkIsEmail = (item: any) => {
     item.isValid = true;
 }
 
-const disabled = computed(() => form.name.value != "" && form.email.value != "" && form.phone.value != "");
+const disabled = computed(() => form.name.isValid && form.name.value != "" && form.phoneUnMasked.length == 11);
 
 onMounted(() => {
 

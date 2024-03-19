@@ -1,5 +1,5 @@
 <template>
-     <LoadingComponent :isLoading="isLoading"></LoadingComponent>
+    <LoadingComponent :isLoading="isLoading"></LoadingComponent>
     <div v-if="record" class="bg-white rounded-bl-2xl rounded-br-2xl shadow">
         <AppHeaderComponent v-if="record.branch" :homeRoute="{
         name: 'detail-branch',
@@ -15,7 +15,7 @@
             </div>
             <div class="mt-4">
                 <div class="text-sm font-light text-slate-500">Время</div>
-                <div>{{ format(record.record_start_datetime, 'dd MMMM HH:SS', { locale: ru }) }}</div>
+                <div>{{ format(record.record_start_datetime, 'dd MMMM HH:mm', { locale: ru }) }}</div>
             </div>
             <div class="mt-2">
                 <div class="text-sm font-light text-slate-500">Мастер</div>
@@ -30,6 +30,15 @@
                 <div>Итого</div>
                 <div>{{ record.services[0].price }}₸</div>
             </div>
+            <RouterLink :to="{
+        name: 'detail-branch',
+        params: {
+            id: record.branch.slug,
+        }
+    }" class="bg-primary py-4 cursor-pointer text-white flex justify-center items-center gap-3 rounded-lg w-full mt-4 text-center">
+                <HomeIcon class="h-6 w-6"></HomeIcon>
+                <div>Домой</div>
+            </RouterLink>
         </div>
     </div>
 
@@ -43,7 +52,7 @@ import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import AppHeaderComponent from '../components/AppHeaderComponent.vue';
 import LoadingComponent from '../components/LoadingComponent.vue';
-
+import { HomeIcon } from '@heroicons/vue/24/outline';
 const record = ref<RecordView | undefined>(undefined);
 
 const route = useRoute();
@@ -54,6 +63,6 @@ onMounted(() => {
     instance.get<RecordView>(`/api/records/${route.params.uuid}`)
         .then(res => record.value = res.data)
         .catch(e => console.log(e))
-        .finally(()=>isLoading.value = false);
+        .finally(() => isLoading.value = false);
 });
 </script>
