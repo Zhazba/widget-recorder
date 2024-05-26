@@ -34,3 +34,15 @@ export const book = async (startD: string, endD: string, checkedDates: Ref) => {
     }
 }
 export {getDayInNanoSeconds};
+
+export function groupBy(array: any, key: string) {
+    //@ts-ignore
+    return array.reduce((result, item) => {
+        const group = item[key];
+        if (!result[group]) {
+            result[group] = [];
+        }
+        result[group].push(item);
+        return result;
+    }, {});
+}

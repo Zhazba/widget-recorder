@@ -6,7 +6,7 @@
         name: 'masters-list',
         params: {
             id: route.params.id,
-            serviceId: store.service!.id
+            serviceId: store.service?.id
         }
     }" :title="store.branch?.name ?? 'Домой'"></AppHeaderComponent>
             <div  class="px-6 pb-5">
@@ -27,7 +27,7 @@
                         class="justify-center cursor-pointer p-[9px] bg-[#EAEAEA]  rounded-lg items-center flex flex-col"
                         v-for="nearestDate in nearestDates">
                         <div class="text-sm">{{ nearestDate.getDate() }}</div>
-                        <p class="text-xs">{{ formatDate(date, 'MMMM', {locale: ru}) }}</p>
+                        <p class="text-xs">{{ formatDate(nearestDate, 'MMMM', {locale: ru}) }}</p>
                     </div>
                 </div>
             </div>
@@ -71,6 +71,7 @@ onMounted(() => {
     }
     nearestDates.value = dates;
     isLoading.value = true;
+    console.log('sda')
     instance.get(`/api/services/${route.params.serviceId}/`).then(
         (res) => setServiceWithEmployee(res.data, parseInt(route.params.masterId.toString()))
     ).catch(

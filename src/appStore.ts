@@ -66,36 +66,36 @@ export const workDays = {
     0: {
         work: true,
         startHour: 9,
-        endHour: 19
+        endHour: 20
     },
     1: {
         work: true,
         startHour: 9,
-        endHour: 19
+        endHour: 20
     },
     2: {
         work: true,
         startHour: 9,
-        endHour: 19
+        endHour: 20
     },
     3: {
         work: true,
         startHour: 9,
-        endHour: 19
+        endHour: 20
     },
     4: {
         work: true,
         startHour: 9,
-        endHour: 19
+        endHour: 20
     },
     5: {
         work: true,
         startHour: 9,
-        endHour: 19
+        endHour: 20
     },
     6: {
-        work: false,
+        work: true,
         startHour: 9,
-        endHour: 19
+        endHour: 20
     }
 }

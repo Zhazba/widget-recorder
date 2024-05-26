@@ -82,30 +82,26 @@ onMounted(() => {
 
 
 
-
 const emit = defineEmits(['onselect']);
 
 
 const checkDifference = (dateWithService: Date) => {
-    console.log(dateWithService.getHours() + dateWithService.getMinutes() / 100, props.workDays[props.today.getDay()]['endHour'] + 1)
-    if (dateWithService.getHours() + dateWithService.getMinutes() / 100 > props.workDays[props.today.getDay()]['endHour'] + 1) {
-        return true;
-    }
-    return false;
+    return dateWithService.getHours() + dateWithService.getMinutes() / 100 > props.workDays[props.today.getDay()]['endHour'] + 1;
+
 }
 
 const onSelect = (slot: Date) => {
     if (checkedDates.value.includes(slot.getTime())) {
         return;
     }
-    if (checkDifference(addMinutes(slot, store.service?.duration!)) == true) {
+    if (checkDifference(addMinutes(slot, store.service?.duration!))) {
         addToast({
             message: `Бронирование невозможно операция длится ${store.service?.duration} минут`,
             timeout: 5000
         })
         return;
     }
-    if (checkIsBooked(slot, addMinutes(slot, store.service?.duration!), checkedDates) == true) {
+    if (checkIsBooked(slot, addMinutes(slot, store.service?.duration!), checkedDates)) {
         addToast({
             message: `Бронирование невозможно операция длится ${store.service?.duration} минут`,
             timeout: 5000

@@ -2,8 +2,7 @@
     <div>
         <div class="flex flex-col gap-4">
             <div v-for="option in options" :key="option.id" @click="onSelect(option)"
-          
-            class="cursor-pointer border-[2px] border-white hover:bg-slate-50 flex justify-between bg-white rounded-2xl p-4 items-center text-sm"
+            class="cursor-pointer border-[2px] border-white flex justify-between bg-white rounded-2xl p-4 items-center text-sm"
             :class="{
                 '!border-primary': isActive(option)
             }"

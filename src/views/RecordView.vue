@@ -11,7 +11,10 @@
             <div class="text-lg font-medium">😊 Успешное подтверждение бронирования</div>
             <div class="text-sm font-light mt-2">
                 Мы с радостью подтверждаем ваше бронирование услуги {{ record?.services[0].name }} в нашем уютном
-                барбершопе {{ record?.branch.name }}.
+                месте {{ record?.branch.name }}.
+            </div>
+            <div class="text-sm font-light mt-2">
+              {{record.branch.thank_you_text}}
             </div>
             <div class="mt-4">
                 <div class="text-sm font-light text-slate-500">Время</div>

@@ -2,12 +2,14 @@
     <LoadingComponent :isLoading="isLoading"></LoadingComponent>
     <div v-if="store.branch != undefined">
         <BranchHeaderComponent :detail="store.branch"></BranchHeaderComponent>
-        <main class="px-6 mt-[60px]">
-            <h2 class="font-medium">Услуги</h2>
-            <ServiceSelectComponent class="mt-5" v-model="selectedOption" :options="store.branch.services"></ServiceSelectComponent>
+        <main class="mt-[40px] flex flex-col gap-[30px]">
+          <section class="px-6" v-for="(options, key) in groupedByCategoryOptions">
+            <h2 class="font-medium bg-slate-100 sticky top-0 py-[15px]">{{ key }}</h2>
+            <ServiceSelectComponent class="mt-3" v-model="selectedOption" :options="options"></ServiceSelectComponent>
+          </section>
         </main>
         <div class="h-[100px]"></div>
-        <ContinueComponent @click="navigateToMasters" :isOpen="isOpen" title="Выбрать барбера" :service="selectedOption"></ContinueComponent>
+        <ContinueComponent @click="navigateToMasters" :isOpen="isOpen" title="Выбрать Мастера" :service="selectedOption"></ContinueComponent>
     </div>
 </template>
 <script lang="ts" setup>
@@ -21,6 +23,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { instance } from '../api/server';
 import { setBranch } from '../appStore';
 import { store } from '../appStore';
+import {groupBy} from "../utils";
 
 const router = useRouter();
 const route = useRoute();
@@ -44,6 +47,13 @@ onMounted(()=>{
 const selectedOption = ref<Service | undefined>(undefined);
 
 const isOpen = computed(()=>selectedOption.value != undefined);
+
+const groupedByCategoryOptions = computed(()=>{
+  if (store.branch != undefined) {
+    return groupBy(store.branch.services, 'category_name')
+  }
+  return [];
+})
 
 const navigateToMasters = () => {
     router.push({
