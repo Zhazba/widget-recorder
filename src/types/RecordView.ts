@@ -55,5 +55,6 @@ export interface RecordView {
     branch: Branch;
     services: Service[];
     client: Client;
+    thank_you_text: string;
     employee: EmployeeInfo;
 }
