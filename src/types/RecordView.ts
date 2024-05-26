@@ -5,6 +5,7 @@ interface Branch {
     image: string;
     slug: string;
     address: string;
+    thank_you_text: string;
 }
 
 interface Service {
@@ -55,6 +56,5 @@ export interface RecordView {
     branch: Branch;
     services: Service[];
     client: Client;
-    thank_you_text: string;
     employee: EmployeeInfo;
 }
